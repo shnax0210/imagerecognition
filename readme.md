@@ -1,6 +1,5 @@
 # Project purpose
-This project allows to get more benefits from three point estimation. 
-For details please refer to base [notebook](https://github.com/shnax0210/work_estimation/blob/master/base_estimation.ipynb).
+This project provides simple endpoint that returns result of image classification as json.
 
 # How to run
 - install [Docker](https://www.docker.com/products/docker-desktop);
