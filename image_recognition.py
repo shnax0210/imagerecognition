@@ -4,6 +4,8 @@ from image_utils import preprocess_input
 from vgg19 import VGG19
 import numpy as np
 
+model = VGG19(weights="imagenet")
+
 
 def predict(file):
     image = image_utils.load_img(file, target_size=(224, 224))
@@ -11,8 +13,6 @@ def predict(file):
 
     image = np.expand_dims(image, axis=0)
     image = preprocess_input(image)
-
-    model = VGG19(weights="imagenet")
 
     preds = model.predict(image)
     (inID, label) = decode_predictions(preds)[0]
