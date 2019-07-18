@@ -7,7 +7,7 @@ import numpy as np
 model = VGG19(weights="imagenet")
 
 
-def predict(file):
+def predict(file, number_of_results):
     image = image_utils.load_img(file, target_size=(224, 224))
     image = image_utils.img_to_array(image)
 
@@ -15,7 +15,6 @@ def predict(file):
     image = preprocess_input(image)
 
     preds = model.predict(image)
-    (inID, label) = decode_predictions(preds)[0]
 
-    return label
+    return decode_predictions(preds, number_of_results)
 

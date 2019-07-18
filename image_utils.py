@@ -28,7 +28,7 @@ def preprocess_input(x, dim_ordering='default'):
     return x
 
 
-def decode_predictions(preds):
+def decode_predictions(preds, number_of_results=5):
     global CLASS_INDEX
     assert len(preds.shape) == 2 and preds.shape[1] == 1000
     if CLASS_INDEX is None:
@@ -36,8 +36,11 @@ def decode_predictions(preds):
                          CLASS_INDEX_PATH,
                          cache_subdir='models')
         CLASS_INDEX = json.load(open(fpath))
-    indices = np.argmax(preds, axis=-1)
+    indices = preds.argsort(axis=1)[:, -number_of_results:][0][::-1]
     results = []
     for i in indices:
-        results.append(CLASS_INDEX[str(i)])
+        results.append({
+            "label": CLASS_INDEX[str(i)][1],
+            "probability": float(preds[0][i]),
+        })
     return results
